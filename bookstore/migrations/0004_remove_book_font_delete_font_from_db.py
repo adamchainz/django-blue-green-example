@@ -9,16 +9,21 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.SeparateDatabaseAndState(
-            # No changes in the project.
-            state_operations=[],
-            # Operations to be performed on the database.
-            database_operations=[
-                migrations.RemoveField(
-                    model_name="book",
-                    name="font",
-                ),
-                migrations.DeleteModel(name="Font"),
-            ],
+        migrations.RunSQL(
+            # Copy-pasted from sqlmigrate on migration 0003 without
+            # SeparateDatabaseAndState.
+            """
+            --
+            -- Remove field font from book
+            --
+            CREATE TABLE "new__bookstore_book" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(1023) NOT NULL, "description" text NOT NULL, "pages" integer NOT NULL, "isbn" integer NULL, "price" decimal NULL);
+            INSERT INTO "new__bookstore_book" ("id", "title", "description", "pages", "isbn", "price") SELECT "id", "title", "description", "pages", "isbn", "price" FROM "bookstore_book";
+            DROP TABLE "bookstore_book";
+            ALTER TABLE "new__bookstore_book" RENAME TO "bookstore_book";
+            --
+            -- Delete model Font
+            --
+            DROP TABLE "bookstore_font";
+            """,
         ),
     ]
