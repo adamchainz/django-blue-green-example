@@ -8,19 +8,4 @@ class Migration(migrations.Migration):
         ("bookstore", "0002_book_price"),
     ]
 
-    operations = [
-        migrations.SeparateDatabaseAndState(
-            # Operations in the project state.
-            state_operations=[
-                migrations.RemoveField(
-                    model_name="book",
-                    name="font",
-                ),
-                migrations.DeleteModel(
-                    name="Font",
-                ),
-            ],
-            # No changes in the database.
-            database_operations=[],
-        ),
-    ]
+    operations = []

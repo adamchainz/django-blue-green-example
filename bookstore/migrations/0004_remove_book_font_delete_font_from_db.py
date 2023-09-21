@@ -9,16 +9,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.SeparateDatabaseAndState(
-            # No changes in the project.
-            state_operations=[],
-            # Operations to be performed on the database.
-            database_operations=[
-                migrations.RemoveField(
-                    model_name="book",
-                    name="font",
-                ),
-                migrations.DeleteModel(name="Font"),
-            ],
+        migrations.RemoveField(
+            model_name="book",
+            name="font",
         ),
+        migrations.DeleteModel(name="Font"),
     ]
