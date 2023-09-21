@@ -16,3 +16,4 @@ class Book(models.Model):
     isbn = models.IntegerField(null=True)
     authors = models.ManyToManyField("Author")
     font = models.ForeignKey("Font", on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=8, decimal_places=2, null=True)
